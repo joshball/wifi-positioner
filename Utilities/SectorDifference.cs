@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace SpykeeWifiPositionFancy.Utilities
+namespace WiFiPositioner.Utilities
 {
     /// <summary>
     /// In order to calculate the position of the client wifi adapter a difference between the access points of the map and the access points

@@ -11,11 +11,11 @@ using System.Xml.XPath;
 
 using Newtonsoft.Json;
 
-using SpykeeWifiPositionFancy.Interfaces;
-using SpykeeWifiPositionFancy.Datastructures;
-using SpykeeWifiPositionFancy.Utilities;
+using WiFiPositioner.Interfaces;
+using WiFiPositioner.Datastructures;
+using WiFiPositioner.Utilities;
 
-namespace SpykeeWifiPositionFancy
+namespace WiFiPositioner
 {
     /// <summary>
     /// This class does all the neede operations in oder to calculate the current position of the wifi adapter. Due to the fact that
@@ -27,51 +27,7 @@ namespace SpykeeWifiPositionFancy
     /// intervents too much into the calculation.
     /// 
     /// Example:
-    /// </summary>
-    /// <example>
-    /// <code>
-    /// using NativeWifi;
-    /// 
-    /// namespace Main
-    /// {
-    ///     public class Main
-    ///     {
-    ///         public static void Main(String[] args)
-    ///         {
-    ///             // standard values
-    ///             Positionable myPos = new Positioning(4000, // scanpause in ms
-    ///                                                   -60, // minimum range rssi
-    ///                                                 false, // standard error buffer deactivate
-    ///                                                     0, // standard error buffer value
-    ///                                                     4, // measurements for map creation
-    ///                                                     4, // measurements for position calculation);
-    ///         
-    ///             WlanClient client = new WlanClient();
-    ///             
-    ///             // hit enter to start
-    ///             string sInput = Console.ReadLine();
-    ///             
-    ///             // create virtual sector map
-    ///             while(sInput.Equals(""))
-    ///             {
-    ///                 int tempSector = myPos.getSectorCounter();
-    ///                 myPos.setSectorCounter(tempSector++);
-    ///                 myPos.createSectorAtPosition(tempSector, client);
-    ///                 
-    ///                 // hit enter to do it again
-    ///                 sInput = Console.ReadLine();
-    ///             }
-    ///             
-    ///             // find position
-    ///             while (true)
-    ///             {
-    ///                 myPos.findPosition(client);
-    ///             }
-    ///         }
-    ///     }
-    /// }
-    /// </code>
-    /// </example>
+    /// </summary>    
     class Positioning : Positionable
     {
         /// <summary>

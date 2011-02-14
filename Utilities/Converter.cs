@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using NativeWifi;
 
-namespace SpykeeWifiPositionFancy.Utilities
+namespace WiFiPositioner.Utilities
 {
     /// <summary>
     /// This abstract class is used to convert different things like the <c>WlanBssEntry</c> into a readable string (MAC address)

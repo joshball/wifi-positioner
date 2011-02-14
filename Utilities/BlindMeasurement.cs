@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace SpykeeWifiPositionFancy.Utilities
+namespace WiFiPositioner.Utilities
 {
     /// <summary>
     /// This class stores values describing an access point which is measured during the calculation process for determinating
