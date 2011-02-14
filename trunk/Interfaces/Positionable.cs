@@ -5,11 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using SpykeeWifiPositionFancy.Datastructures;
-using SpykeeWifiPositionFancy.Properties;
-using SpykeeWifiPositionFancy.Utilities;
+using WiFiPositioner.Datastructures;
+using WiFiPositioner.Properties;
+using WiFiPositioner.Utilities;
 
-namespace SpykeeWifiPositionFancy.Interfaces
+namespace WiFiPositioner.Interfaces
 {
     /// <summary>
     /// This interface can be used to implement new types of creating maps and calculate the position.

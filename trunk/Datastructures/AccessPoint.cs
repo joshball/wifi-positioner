@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace SpykeeWifiPositionFancy.Datastructures
+namespace WiFiPositioner.Datastructures
 {
     /// <summary>
     /// This class is used to save data about an access point.

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace SpykeeWifiPositionFancy.Utilities
+namespace WiFiPositioner.Utilities
 {
     /// <summary>
     /// This class stores different values of one access point in order to be able to calculate the average signal strength.

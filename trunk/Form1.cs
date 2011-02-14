@@ -10,10 +10,10 @@ using System.Text;
 using System.Windows.Forms;
 using System.Threading;
 
-using SpykeeWifiPositionFancy;
-using SpykeeWifiPositionFancy.Datastructures;
+using WiFiPositioner;
+using WiFiPositioner.Datastructures;
 
-namespace SpykeeWifiPositionFancy
+namespace WiFiPositioner
 {
     public partial class Form1 : Form
     {

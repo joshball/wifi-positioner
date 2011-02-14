@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace SpykeeWifiPositionFancy.Datastructures
+namespace WiFiPositioner.Datastructures
 {
     /// <summary>
     /// This class is used to save all data that is neede to describe a sector. A sector consists of
