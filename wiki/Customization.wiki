@@ -123,3 +123,5 @@ public override findPosition(WlanClient client)
 }}}
 
 Be careful, not all methods could be overwritten. All getters and setters won't be able to be overwritten by your own methods, because it wouldn't make any sense at all.
+
+At least the start() method is empty. There is only a bunch of commented code which I used some day to test the application in console mode. Feel free to use it, or to leave the method as you wish. If you go by creating a new GUI you won't have to use start().
