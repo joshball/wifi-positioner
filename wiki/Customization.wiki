@@ -1,8 +1,6 @@
 #summary Using your own algorithm to find the position
 #labels Featured,Phase-Implementation
 
-#sidebar Customization_TableOfContents
-
 = Introduction =
 
 wifi-positioner has been designed to make it possible to you, to create your own methods based on the data structures that are given to you. For this purpose all necessary methods have been declared virtual, so all you need is an installed Visual C# IDE, like Visual C# 2010 Express Edition which is completly free.
