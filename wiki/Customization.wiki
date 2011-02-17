@@ -90,4 +90,36 @@ Note that you will have to implement everything by your own. If you don't want t
 
 == Inherit from Positioning class ==
 
-_comming soon_
+An easier way of customizing the application to your needs is to inherit from the `Positioning` class and overwrite only the methods which you do not want to change. The rest of the methods can be used as they are used in the basic program.
+
+Inherit like this:
+
+{{{
+class MyPositioning : Positioning
+{
+   // most basic constructor. would need you to 
+   // set all the expected internal data fields
+   // as you can see them in the code of Positioning
+   public MyPositioning() : base()
+   {
+        // your own stuff
+   }    
+}
+}}}
+
+Try to figure out which constructor would fit your needs best.
+
+If you want to overwrite any methods, let's say that you like all methods but you want to have another type of calculation (the core) you can only change that for your needs by the following example:
+
+{{{
+...
+
+public override findPosition(WlanClient client)
+{
+     // your own implementation
+}
+
+...
+}}}
+
+Be careful, not all methods could be overwritten. All getters and setters won't be able to be overwritten by your own methods, because it wouldn't make any sense at all.
