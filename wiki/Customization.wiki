@@ -26,9 +26,40 @@ SortedDictionary<int, Sector> loadMap(string type, string mapName);
 void saveMap(string mapName);
 }}}
 
-This will imply the usage of the following namespaces:
+=== start() method ===
+
+I used it to create a kind of menue with while loops where you can hit enter to start creating a new sector and other things like interruptions for this to get into finding position mode.
+
+=== findPosition() method ===
+
+This is where I implemented the calculation and the measurement for the position finding algorithm. All you have to overgive is a WlanClient object which is easy to create, as you can see it in my code. It's nothing special, just a handle on the WiFi system.
+
+=== createSectorAtPosition() method ===
+
+I tried to implement the creation of the sectors in this method. All you have to overgive is the sector number, which should count up and the coordinates which you want to have for this specific sector, and actually also the WlanClient object to get access to the WiFi system.
+
+=== printFinalResult() method ===
+
+I used to save all data results, in this case the signal strength difference between sectors (SectorDifference), in a specific datastrcture which is added to a list. Why a list? Well you can sort the list automatically by C#'s internal methods and then you can find the smallest difference which will be your resulting position. 
+
+=== getAccessPointMap() method ===
+
+Your complete map is stored in a SortedDictionary in this case here and this method should just return it because you'll probably need it somewhere else, too.
+
+=== loadMap() method ===
+
+Here you can implement the XML or JSON loader.
+
+=== saveMap() method ===
+
+Here you can implement the XML or JSON file saver.
+
+You will have to include the following namespace into your class:
 
 {{{
+using NativeWifi;
+using Newtonsoft.Json;
+
 using WiFiPositioner.Interfaces;
 using WiFiPositioner.Datastructures;
 using WiFiPositioner.Utilities;
@@ -54,6 +85,8 @@ namespace MyWiFiPositioner
 I suppose you are clever enough to know how to start the program from now on. You will need the main method and before you can find any positions you have to start creating the map, which can be saved in an XML file.
 
 Note that you will have to implement everything by your own. If you don't want to do this, fill the methods with the code from the Positioning class or follow the steps from the next chapter.
+
+----
 
 == Inherit from Positioning class ==
 
