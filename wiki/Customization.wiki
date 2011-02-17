@@ -1,0 +1,60 @@
+#summary Using your own algorithm to find the position
+#labels Featured,Phase-Implementation
+
+= Introduction =
+
+wifi-positioner has been designed to make it possible to you, to create your own methods based on the data structures that are given to you. For this purpose all necessary methods have been declared virtual, so all you need is an installed Visual C# IDE, like Visual C# 2010 Express Edition which is completly free.
+
+= Insert your algorithm =
+
+First you should create a new project, console or windowed. I think it is easier to take the console based one because you won't have to fight with the GUI, just concentrate on the topic right now.
+
+The next step is to add a reference on the wifi-positioner. You can alternatively add all files from wifi-positioner into your project if it's easier for you. And finally have to create a reference on both DLL files which I included into the binaries package.
+
+== Implement an Interface ==
+
+Now you have to decide what you want to do. There are more possibilites than just insert the code of your desire. You can completly write a new core by creating a new class which implements the interface `Positionable`.
+You can find the interface in the namespace `WiFiPositioner.Interfaces` and you will have to implement the following methods:
+
+{{{
+void start();
+Position findPosition(WlanClient client);
+bool createSectorAtPosition(int sector, int xSector, int ySector, WlanClient client);
+Position printFinalResult(List<SectorDifference> list);
+SortedDictionary<int, Sector> getAccessPointMap();
+SortedDictionary<int, Sector> loadMap(string type, string mapName);
+void saveMap(string mapName);
+}}}
+
+This will imply the usage of the following namespaces:
+
+{{{
+using WiFiPositioner.Interfaces;
+using WiFiPositioner.Datastructures;
+using WiFiPositioner.Utilities;
+using WiFiPositioner;
+}}}
+
+And to give you a hint how to start, let's do it like this:
+
+{{{
+namespace MyWiFiPositioner
+{
+    class MyPositioning : Positionable
+    {
+        // implement methods here
+
+        // and take a look at Positioning.cs for
+        // any datastructures that you might need
+        // defined in this class
+    }
+}
+}}}
+
+I suppose you are clever enough to know how to start the program from now on. You will need the main method and before you can find any positions you have to start creating the map, which can be saved in an XML file.
+
+Note that you will have to implement everything by your own. If you don't want to do this, fill the methods with the code from the Positioning class or follow the steps from the next chapter.
+
+== Inherit from Positioning class ==
+
+_comming soon_
