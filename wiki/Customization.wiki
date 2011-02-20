@@ -114,7 +114,7 @@ If you want to overwrite any methods, let's say that you like all methods but yo
 {{{
 ...
 
-public override findPosition(WlanClient client)
+public override Position findPosition(WlanClient client)
 {
      // your own implementation
 }
