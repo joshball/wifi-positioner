@@ -1,0 +1,832 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WiFiPositioner</name>
+    </assembly>
+    <members>
+        <member name="T:WiFiPositioner.Utilities.SectorDifference">
+            <summary>
+            In order to calculate the position of the client wifi adapter a difference between the access points of the map and the access points
+            which have been just measured, have to be compared. This storage type is designed to save all needed data temporary for further
+            calculation.
+            </summary>
+        </member>
+        <member name="F:WiFiPositioner.Utilities.SectorDifference.x">
+            <summary>
+            int - stores the x coordinate of the sector
+            </summary>
+        </member>
+        <member name="F:WiFiPositioner.Utilities.SectorDifference.y">
+            <summary>
+            int - stores the y coordinate of the sector
+            </summary>
+        </member>
+        <member name="F:WiFiPositioner.Utilities.SectorDifference.dRssi">
+            <summary>
+            double - stores the difference between the access points
+            </summary>
+        </member>
+        <member name="M:WiFiPositioner.Utilities.SectorDifference.#ctor(System.Int32,System.Int32,System.Double)">
+            <summary>
+            Constructor creates an instance of this class and initializes the private data fields by a list of parameters.
+            </summary>
+            <param name="x">int</param>
+            <param name="y">int</param>
+            <param name="dRssi">double</param>
+        </member>
+        <member name="M:WiFiPositioner.Utilities.SectorDifference.getX">
+            <summary>
+            returns the x coordinate
+            </summary>
+            <returns>int</returns>
+        </member>
+        <member name="M:WiFiPositioner.Utilities.SectorDifference.getY">
+            <summary>
+            returns the y coordinate
+            </summary>
+            <returns>int</returns>
+        </member>
+        <member name="M:WiFiPositioner.Utilities.SectorDifference.getRssi">
+            <summary>
+            returns the difference of the signal strengths
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WiFiPositioner.Utilities.SectorDifference.setX(System.Int32)">
+            <summary>
+            sets the x coordinate to a new value
+            </summary>
+            <param name="x">int</param>
+        </member>
+        <member name="M:WiFiPositioner.Utilities.SectorDifference.setY(System.Int32)">
+            <summary>
+            sets the y coordinate to a new value
+            </summary>
+            <param name="y">int</param>
+        </member>
+        <member name="M:WiFiPositioner.Utilities.SectorDifference.setdRssi(System.Double)">
+            <summary>
+            sets the signal strength to a new value
+            </summary>
+            <param name="dRssi">double</param>
+        </member>
+        <member name="T:WiFiPositioner.Utilities.RssiCalcHelper">
+            <summary>
+            This class stores different values of one access point in order to be able to calculate the average signal strength.
+            </summary>
+        </member>
+        <member name="F:WiFiPositioner.Utilities.RssiCalcHelper.rssi">
+            <summary>
+            double - stores the summed up signal strengths
+            </summary>
+        </member>
+        <member name="F:WiFiPositioner.Utilities.RssiCalcHelper.count">
+            <summary>
+            int - stores the counter for all saved signal strength
+            </summary>
+        </member>
+        <member name="F:WiFiPositioner.Utilities.RssiCalcHelper.rssiValues">
+            <summary>
+            List - stores a list of all signal strength of one access points
+            </summary>
+        </member>
+        <member name="F:WiFiPositioner.Utilities.RssiCalcHelper.maxRssiValue">
+            <summary>
+            double - the maximum rssi value of an access point measured
+            </summary>
+        </member>
+        <member name="F:WiFiPositioner.Utilities.RssiCalcHelper.minRssiValue">
+            <summary>
+            double - the minimum rssi value of an access point measured
+            </summary>
+        </member>
+        <member name="M:WiFiPositioner.Utilities.RssiCalcHelper.#ctor(System.Double)">
+            <summary>
+            Constructor creates an instance of this class using the first signal strength entry which has to be overgiven
+            by a parameter.
+            </summary>
+            <param name="rssi">double</param>
+        </member>
+        <member name="M:WiFiPositioner.Utilities.RssiCalcHelper.addRssi(System.Double)">
+            <summary>
+            method adds a new signal strength to the list and adds up the counter
+            </summary>
+            <param name="rssi">double</param>
+        </member>
+        <member name="M:WiFiPositioner.Utilities.RssiCalcHelper.getAverageRssi">
+            <summary>
+            returns the average signal strength: summed signal strength divided by the counter
+            </summary>
+            <returns>double</returns>
+        </member>
+        <member name="M:WiFiPositioner.Utilities.RssiCalcHelper.getRssi">
+            <summary>
+            returns the summed up signal strength
+            </summary>
+            <returns>double</returns>
+        </member>
+        <member name="M:WiFiPositioner.Utilities.RssiCalcHelper.getCount">
+            <summary>
+            returns the counter
+            </summary>
+            <returns>int</returns>
+        </member>
+        <member name="M:WiFiPositioner.Utilities.RssiCalcHelper.getAverageFluctuation">
+            <summary>
+            returns the average fluctuation of the signal strength
+            </summary>
+            <returns>Double</returns>
+        </member>
+        <member name="M:WiFiPositioner.Utilities.RssiCalcHelper.printFinalResult">
+            <summary>
+            returns the intervall in which one access point sends it's signal (e.g. -56 to -46 would be the returned result: 10)
+            </summary>
+            <returns>Double</returns>
+        </member>
+        <member name="M:WiFiPositioner.Utilities.RssiCalcHelper.showList">
+            <summary>
+            method shows the entire liste
+            </summary>
+        </member>
+        <member name="M:WiFiPositioner.Utilities.RssiCalcHelper.getMaxRssi">
+            <summary>
+            returns the maximum signal strength
+            </summary>
+            <returns>double</returns>
+        </member>
+        <member name="M:WiFiPositioner.Utilities.RssiCalcHelper.getMinRssi">
+            <summary>
+            retruns the minimum signal strength
+            </summary>
+            <returns>double</returns>
+        </member>
+        <member name="T:WiFiPositioner.Datastructures.Sector">
+            <summary>
+            This class is used to save all data that is neede to describe a sector. A sector consists of
+            the coordinates given by the private data fields <c>x</c> and <c>y</c>. There is also a list of all
+            access points, called <c>apList</c>, which are available in this sector and seem to be useful for 
+            further calculation.
+            </summary>
+        </member>
+        <member name="F:WiFiPositioner.Datastructures.Sector.x">
+            <summary>
+            int - stores the x coordinate of the sector
+            </summary>
+        </member>
+        <member name="F:WiFiPositioner.Datastructures.Sector.y">
+            <summary>
+            int - stores the y coordinate of the sector
+            </summary>
+        </member>
+        <member name="F:WiFiPositioner.Datastructures.Sector.apList">
+            <summary>
+            Dictionary - stores all access points available in this sector which seems to be useful for further calculation
+            </summary>
+        </member>
+        <member name="F:WiFiPositioner.Datastructures.Sector.id">
+            <summary>
+            int - stores the id of a sector if it is needed
+            </summary>
+        </member>
+        <member name="M:WiFiPositioner.Datastructures.Sector.#ctor">
+            <summary>
+            Standardconstructor creates an instance of this class and initializes the primitives to 0.
+            </summary>
+        </member>
+        <member name="M:WiFiPositioner.Datastructures.Sector.#ctor(System.Int32,System.Int32)">
+            <summary>
+            Constructor creates an instance of this class and uses the coordinates for this
+            </summary>
+            <param name="x"></param>
+            <param name="y"></param>
+        </member>
+        <member name="M:WiFiPositioner.Datastructures.Sector.#ctor(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Constructor creates an instance of this class and uses some initiliazing parameters. The coordinates by
+            the integers <c>x</c> and <c>y</c> and the <c>id</c>.
+            </summary>
+            <param name="x">int</param>
+            <param name="y">int</param>
+            <param name="id">int</param>
+        </member>
+        <member name="M:WiFiPositioner.Datastructures.Sector.#ctor(System.Int32,System.Int32,System.Collections.Generic.Dictionary{System.String,WiFiPositioner.Datastructures.AccessPoint})">
+            <summary>
+            Constructor creates an instance of this class with coordinates and the list of accesspoints
+            </summary>
+            <param name="x"></param>
+            <param name="y"></param>
+            <param name="apList"></param>
+        </member>
+        <member name="M:WiFiPositioner.Datastructures.Sector.addAccessPointToSector(WiFiPositioner.Datastructures.AccessPoint)">
+            <summary>
+            method takes an <c>AccessPoint</c> and adds it to this sector.
+            </summary>
+            <param name="ap">AccessPoint</param>
+        </member>
+        <member name="M:WiFiPositioner.Datastructures.Sector.addAccessPointToSector(System.String,System.Double)">
+            <summary>
+            method takes a MAC address and a signal strength and adds an <c>AccessPoint</c> object
+            to the list.
+            </summary>
+            <param name="bssid">string</param>
+            <param name="rssi">double</param>
+        </member>
+        <member name="M:WiFiPositioner.Datastructures.Sector.addAccessPointToSector(System.String,System.Double,System.Double,System.Double)">
+            <summary>
+            methods takes a lot of parameters belonging to an access point and adds the object to it's list
+            </summary>
+            <param name="bssid">string</param>
+            <param name="rssi">double</param>
+            <param name="mapMinRssi">double</param>
+            <param name="mapMaxRssi">double</param>
+        </member>
+        <member name="M:WiFiPositioner.Datastructures.Sector.getAccessPoints">
+            <summary>
+            returns the entire list of access points
+            </summary>
+            <returns>Dictionary</returns>
+        </member>
+        <member name="M:WiFiPositioner.Datastructures.Sector.getX">
+            <summary>
+            returns the x coordinate
+            </summary>
+            <returns>int</returns>
+        </member>
+        <member name="M:WiFiPositioner.Datastructures.Sector.getY">
+            <summary>
+            returns the y coordinate
+            </summary>
+            <returns>int</returns>
+        </member>
+        <member name="M:WiFiPositioner.Datastructures.Sector.getSectorId">
+            <summary>
+            returns the sector id
+            </summary>
+            <returns>int</returns>
+        </member>
+        <member name="M:WiFiPositioner.Datastructures.Sector.setX(System.Int32)">
+            <summary>
+            sets the x coordinate
+            </summary>
+            <param name="x">int</param>
+        </member>
+        <member name="M:WiFiPositioner.Datastructures.Sector.setY(System.Int32)">
+            <summary>
+            sets the y coordinate
+            </summary>
+            <param name="y">int</param>
+        </member>
+        <member name="M:WiFiPositioner.Datastructures.Sector.setSectorId(System.Int32)">
+            <summary>
+            sets the id of the sector
+            </summary>
+            <param name="id">int</param>
+        </member>
+        <member name="M:WiFiPositioner.Datastructures.Sector.setAccessPointList(System.Collections.Generic.Dictionary{System.String,WiFiPositioner.Datastructures.AccessPoint})">
+            <summary>
+            sets the access point list
+            </summary>
+            <param name="list">Dictionary</param>
+        </member>
+        <member name="M:WiFiPositioner.Program.Main">
+            <summary>
+            The main entry point for the application.
+            </summary>
+        </member>
+        <member name="T:WiFiPositioner.Datastructures.AccessPoint">
+            <summary>
+            This class is used to save data about an access point.
+            </summary>
+        </member>
+        <member name="F:WiFiPositioner.Datastructures.AccessPoint.bssid">
+            <summary>
+            string - the MAC address of the access point
+            </summary>
+        </member>
+        <member name="F:WiFiPositioner.Datastructures.AccessPoint.rssi">
+            <summary>
+            double - the signal strength during the measurement
+            </summary>
+        </member>
+        <member name="F:WiFiPositioner.Datastructures.AccessPoint.fluctuation">
+            <summary>
+            double - the fluctuation of the signal strength
+            </summary>
+        </member>
+        <member name="F:WiFiPositioner.Datastructures.AccessPoint.mapMinRssi">
+            <summary>
+            double - the minimum value measured during map creation
+            </summary>
+        </member>
+        <member name="F:WiFiPositioner.Datastructures.AccessPoint.mapMaxRssi">
+            <summary>
+            double - the maximum value measured during map creation
+            </summary>
+        </member>
+        <member name="M:WiFiPositioner.Datastructures.AccessPoint.#ctor(System.String,System.Double)">
+            <summary>
+            Constructor creates an instance using the MAC address and the signal strength
+            </summary>
+            <param name="bssid">string</param>
+            <param name="rssi">double</param>
+        </member>
+        <member name="M:WiFiPositioner.Datastructures.AccessPoint.#ctor(System.String,System.Double,System.Double)">
+            <summary>
+            Constructor creates an instance using the MAC address, signal strength and fluctuation
+            </summary>
+            <param name="bssid">string</param>
+            <param name="rssi">double</param>
+            <param name="fluctuation">double</param>
+        </member>
+        <member name="M:WiFiPositioner.Datastructures.AccessPoint.#ctor(System.String,System.Double,System.Double,System.Double)">
+            <summary>
+            Constructor creates an instance using the MAC address, signal strength and the max and min values for it
+            </summary>
+            <param name="bssid">string</param>
+            <param name="rssi">double</param>
+            <param name="mapMinRssi">double</param>
+            <param name="mapMaxRssi">double</param>
+        </member>
+        <member name="M:WiFiPositioner.Datastructures.AccessPoint.getBssid">
+            <summary>
+            returns the MAC address
+            </summary>
+            <returns>string</returns>
+        </member>
+        <member name="M:WiFiPositioner.Datastructures.AccessPoint.getRssi">
+            <summary>
+            returns the signal strength
+            </summary>
+            <returns>double</returns>
+        </member>
+        <member name="M:WiFiPositioner.Datastructures.AccessPoint.getFluctuation">
+            <summary>
+            returns the fluctuation
+            </summary>
+            <returns>double</returns>
+        </member>
+        <member name="M:WiFiPositioner.Datastructures.AccessPoint.getMapMinRssi">
+            <summary>
+            returns the minimum signal strength measured
+            </summary>
+            <returns>double</returns>
+        </member>
+        <member name="M:WiFiPositioner.Datastructures.AccessPoint.getMapMaxRssi">
+            <summary>
+            returns the maximum signal strength measured
+            </summary>
+            <returns>double</returns>
+        </member>
+        <member name="M:WiFiPositioner.Datastructures.AccessPoint.setBssi(System.String)">
+            <summary>
+            sets the MAC address to a new value
+            </summary>
+            <param name="bssid">string</param>
+        </member>
+        <member name="M:WiFiPositioner.Datastructures.AccessPoint.setRssi(System.Double)">
+            <summary>
+            sets the signal strength to a new value
+            </summary>
+            <param name="rssi">double</param>
+        </member>
+        <member name="M:WiFiPositioner.Datastructures.AccessPoint.setFluctuation(System.Double)">
+            <summary>
+            sets the fluctuation to a new value
+            </summary>
+            <param name="fluctuation">double</param>
+        </member>
+        <member name="T:WiFiPositioner.Positioning">
+            <summary>
+            This class does all the neede operations in oder to calculate the current position of the wifi adapter. Due to the fact that
+            Windows needs some time to recreate the wifi access point lists, the code, if it used without redefined parameteres, will 
+            pause for five seconds after each measuring, during the map creation process. The same pause is also used for the measuring 
+            of access point signal strength during the position calculatin process.
+            
+            The first measuring will always be dropped because it has the same values. It should be different from the 2nd otherwise it
+            intervents too much into the calculation.
+            
+            Example:
+            </summary>    
+        </member>
+        <member name="T:WiFiPositioner.Interfaces.Positionable">
+            <summary>
+            This interface can be used to implement new types of creating maps and calculate the position.
+            </summary>
+        </member>
+        <member name="F:WiFiPositioner.Positioning.accessPointsMap">
+            <summary>
+            SortedDictionary - is used to save the entire virtual map including all sectors, access points, and many more data
+            </summary>
+        </member>
+        <member name="F:WiFiPositioner.Positioning.sectorCount">
+            <summary>
+            int - this counter helps to know which is the last sector that has been saved
+            </summary>
+        </member>
+        <member name="F:WiFiPositioner.Positioning.scanPause">
+            <summary>
+            int - this value gives the breaktime for the multiple measuring
+            </summary>
+        </member>
+        <member name="F:WiFiPositioner.Positioning.minimumRangeRssi">
+            <summary>
+            int - this value sets a minimum signal strength which has to be used as a border. All access points with a more worse signal
+            than this will be ignored. This only works if the <c>standardError</c> parameter is set to true.
+            </summary>
+        </member>
+        <member name="F:WiFiPositioner.Positioning.standardError">
+            <summary>
+            Boolean - this is the switch which can be turned on and off to ignore access points which have a very weak signal strength.
+            </summary>
+        </member>
+        <member name="F:WiFiPositioner.Positioning.errorBuffer">
+            <summary>
+            int - this value is used together with the calculated signal strength differences. If the difference is under 2 it will be
+            set to 0.
+            </summary>
+        </member>
+        <member name="F:WiFiPositioner.Positioning.mapCreationCount">
+            <summary>
+            int - this value defines how many measurements have to be done during the map creation process for every sector.
+            </summary>
+        </member>
+        <member name="F:WiFiPositioner.Positioning.findPositionCount">
+            <summary>
+            int - this value defines how many measurements have to be done during the position finding process for the current position.
+            </summary>
+        </member>
+        <member name="F:WiFiPositioner.Positioning.xmlCountSector">
+            <summary>
+            int - xml sector counter
+            </summary>
+        </member>
+        <member name="F:WiFiPositioner.Positioning.xmlCountAps">
+            <summary>
+            int - xml access points counter
+            </summary>
+        </member>
+        <member name="M:WiFiPositioner.Positioning.#ctor">
+            <summary>
+            Empty constructor just creates an instance of this class.
+            </summary>
+        </member>
+        <member name="M:WiFiPositioner.Positioning.#ctor(System.Collections.Generic.SortedDictionary{System.Int32,WiFiPositioner.Datastructures.Sector})">
+            <summary>
+            Constructor creates an instance of this class and takes a complete virtual access point map.
+            </summary>
+            <param name="tempSector">SortedDictionary</param>
+        </member>
+        <member name="M:WiFiPositioner.Positioning.#ctor(System.Int32,System.Int32,System.Boolean,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Constructor creates an instance of this class and takes a lot of parameters to personalize the entire position finding process.
+            </summary>
+            <param name="scanPause">int</param>
+            <param name="minimumRangeRssi">int</param>
+            <param name="standardError">Boolean</param>
+            <param name="errorBuffer">int</param>
+            <param name="mapCreationCount">int</param>
+            <param name="findPositionCount">int</param>
+        </member>
+        <member name="M:WiFiPositioner.Positioning.#ctor(System.Collections.Generic.SortedDictionary{System.Int32,WiFiPositioner.Datastructures.Sector},System.Int32,System.Int32,System.Boolean,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Constructor creates an instance of this class and takes a lot of parameters to personalize the entire position finding process.
+            In this case it is also possible to provide a complete new map of access points so that the map creation doesn't have to be done.
+            </summary>
+            <param name="tempSector">int</param>
+            <param name="scanPause">int</param>
+            <param name="minimumRangeRssi">int</param>
+            <param name="standardError">Boolean</param>
+            <param name="errorBuffer">int</param>
+            <param name="mapCreationCount">int</param>
+            <param name="findPositionCount">int</param>
+        </member>
+        <member name="M:WiFiPositioner.Positioning.start">
+            <summary>
+            method creates a frame where the entire process of the position finding can take place. In this case it is a standard
+            procedure which can be used for testing. It is also possible to inherit this class and write a complete new start()
+            method or to reimplement the <c>Positionable</c> interface, to create a complete new algorithm.
+            </summary>
+        </member>
+        <member name="M:WiFiPositioner.Positioning.loadMap(System.String,System.String)">
+             <summary>
+             loads a virtual access point map. you have to supply the type of the file and the name. possibles types are:
+            
+             - json (TODO: read file and interpret)
+             
+             </summary>
+             <param name="type">string</param>
+             <param name="mapName">string</param>
+             <returns>SortedDictionary</returns>
+        </member>
+        <member name="M:WiFiPositioner.Positioning.saveMap(System.String)">
+            <summary>
+            saves the current map into a file
+            </summary>
+            <param name="mapName">string</param>
+        </member>
+        <member name="M:WiFiPositioner.Positioning.findPosition(NativeWifi.WlanClient)">
+            <summary>
+            method is used to calculate the position of the wifi adapter (client). Be aware of the possibly long break!
+            </summary>
+            <param name="client">WlanClient</param>
+            <returns>Position</returns>
+        </member>
+        <member name="M:WiFiPositioner.Positioning.createSectorAtPosition(System.Int32,System.Int32,System.Int32,NativeWifi.WlanClient)">
+            <summary>
+            method is used to create a sector at a specified position. This sector and all it's access points will be saved in a
+            large SortedDictionary type. Be aware of the possibly long pause !
+            </summary>
+            <param name="sector">int</param>
+            <param name="client">WlanClient</param>
+            <param name="xSector">int</param>
+            <param name="ySector">int</param>
+        </member>
+        <member name="M:WiFiPositioner.Positioning.printFinalResult(System.Collections.Generic.List{WiFiPositioner.Utilities.SectorDifference})">
+            <summary>
+            method prints the final result of the calculation process.
+            </summary>
+            <param name="list">List</param>
+        </member>
+        <member name="M:WiFiPositioner.Positioning.getAccessPointMap">
+            <summary>
+            returns the entire sector/accesspoint map
+            </summary>
+            <returns>SortedDictionary</returns>
+        </member>
+        <member name="M:WiFiPositioner.Positioning.setAccessPointMap(System.Collections.Generic.SortedDictionary{System.Int32,WiFiPositioner.Datastructures.Sector})">
+            <summary>
+            sets the sector/accesspoint map
+            </summary>
+            <param name="apMap">SortedDictionary</param>
+        </member>
+        <member name="M:WiFiPositioner.Positioning.getSectorCounter">
+            <summary>
+            returns the sector counter
+            </summary>
+            <returns>int</returns>
+        </member>
+        <member name="M:WiFiPositioner.Positioning.setSectorCounter(System.Int32)">
+            <summary>
+            sets the sector counter
+            </summary>
+            <param name="sectorCounter">int</param>
+        </member>
+        <member name="M:WiFiPositioner.Positioning.getScanPause">
+            <summary>
+            returns the scan pause value
+            </summary>
+            <returns>int</returns>
+        </member>
+        <member name="M:WiFiPositioner.Positioning.setScanPause(System.Int32)">
+            <summary>
+            sets the scan pause value
+            </summary>
+            <param name="scanPause">int</param>
+        </member>
+        <member name="M:WiFiPositioner.Positioning.getMinimumRangeRssi">
+            <summary>
+            returns the minimum range signal strength
+            </summary>
+            <returns>int</returns>
+        </member>
+        <member name="M:WiFiPositioner.Positioning.setMinimumRangeRssi(System.Int32)">
+            <summary>
+            sets the minimum range signal strength
+            </summary>
+            <param name="minimumRangeRssi">int</param>
+        </member>
+        <member name="M:WiFiPositioner.Positioning.getStandardError">
+            <summary>
+            returns whether the standard error should be used (errorBuffer)
+            </summary>
+            <returns>Boolean</returns>
+        </member>
+        <member name="M:WiFiPositioner.Positioning.setStandardError(System.Boolean)">
+            <summary>
+            sets whether the standard error should be used (errorBuffer)
+            </summary>
+            <param name="standardError">Boolean</param>
+        </member>
+        <member name="M:WiFiPositioner.Positioning.getErrorBuffer">
+            <summary>
+            returns the error buffer
+            </summary>
+            <returns>int</returns>
+        </member>
+        <member name="M:WiFiPositioner.Positioning.setErrorBuffer(System.Int32)">
+            <summary>
+            sets the error buffer
+            </summary>
+            <param name="errorBuffer">int</param>
+        </member>
+        <member name="M:WiFiPositioner.Positioning.getMapCreationCounter">
+            <summary>
+            returns the ammount of measurements during the map creation process
+            </summary>
+            <returns>int</returns>
+        </member>
+        <member name="M:WiFiPositioner.Positioning.setMapCreationCounter(System.Int32)">
+            <summary>
+            sets the ammount of measurements during the map creation process
+            </summary>
+            <param name="mapCreationCount"></param>
+        </member>
+        <member name="M:WiFiPositioner.Positioning.getFindPositioinCounter">
+            <summary>
+            returns the ammount of measurements during the position finding
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WiFiPositioner.Positioning.setFindPositionCounter(System.Int32)">
+            <summary>
+            sets the ammount of measurements during the position finding
+            </summary>
+            <param name="findPositionCounter"></param>
+        </member>
+        <member name="M:WiFiPositioner.Positioning.getXmlSectorCounter">
+            <summary>
+            returns the number of sectors found in the xml file
+            </summary>
+            <returns>int</returns>
+        </member>
+        <member name="M:WiFiPositioner.Positioning.getXmlApCounter">
+            <summary>
+            returns the number of access points found in the xml file
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:WiFiPositioner.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:WiFiPositioner.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:WiFiPositioner.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="T:WiFiPositioner.Utilities.Converter">
+            <summary>
+            This abstract class is used to convert different things like the <c>WlanBssEntry</c> into a readable string (MAC address)
+            </summary>
+        </member>
+        <member name="F:WiFiPositioner.Utilities.Converter.hex">
+            <summary>
+            char[] - provides the class with all hexadecimal symbols
+            </summary>
+        </member>
+        <member name="M:WiFiPositioner.Utilities.Converter.GetStringForSSID(NativeWifi.Wlan.Dot11Ssid)">
+            <summary>
+            method creates a string out of the <c>Dot11Ssid</c> type (network name)
+            </summary>
+            <param name="ssid">Wlan.Dot11Ssid</param>
+            <returns>string</returns>
+        </member>
+        <member name="M:WiFiPositioner.Utilities.Converter.getBssid(NativeWifi.Wlan.WlanBssEntry)">
+            <summary>
+            converts the <c>WlanBssEntry</c> type into a readable MAC address
+            </summary>
+            <param name="bss">Wlan.WlanBssEntry</param>
+            <returns>string</returns>
+        </member>
+        <member name="F:WiFiPositioner.Form1.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:WiFiPositioner.Form1.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:WiFiPositioner.Form1.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:WiFiPositioner.Utilities.BlindMeasurement">
+            <summary>
+            This class stores values describing an access point which is measured during the calculation process for determinating
+            the position.
+            </summary>
+        </member>
+        <member name="F:WiFiPositioner.Utilities.BlindMeasurement.bssid">
+            <summary>
+            string - the MAC address of the access point
+            </summary>
+        </member>
+        <member name="F:WiFiPositioner.Utilities.BlindMeasurement.rssi">
+            <summary>
+            double - the signal strength of the access point
+            </summary>
+        </member>
+        <member name="F:WiFiPositioner.Utilities.BlindMeasurement.averageFluctuation">
+            <summary>
+            double - the calculated average fluctuation of the access point
+            </summary>
+        </member>
+        <member name="M:WiFiPositioner.Utilities.BlindMeasurement.#ctor">
+            <summary>
+            Standardconstructor creates an instance of this class and initializes all data fields to 0
+            </summary>
+        </member>
+        <member name="M:WiFiPositioner.Utilities.BlindMeasurement.#ctor(System.String,System.Double)">
+            <summary>
+            Constructor creates an instance of this class and sets the MAC address and the signal strength to a given value
+            </summary>
+            <param name="bssid">string</param>
+            <param name="rssi">double</param>
+        </member>
+        <member name="M:WiFiPositioner.Utilities.BlindMeasurement.#ctor(System.String,System.Double,System.Double)">
+            <summary>
+            Constructor creates an instance of this class and sets the MAC address, the signal strength and the fluctuation to a given value
+            </summary>
+            <param name="bssid">string</param>
+            <param name="rssi">double</param>
+            <param name="averageFluctuation">double</param>
+        </member>
+        <member name="M:WiFiPositioner.Utilities.BlindMeasurement.getBssid">
+            <summary>
+            returns the MAC address
+            </summary>
+            <returns>string</returns>
+        </member>
+        <member name="M:WiFiPositioner.Utilities.BlindMeasurement.getRssi">
+            <summary>
+            returns the signal strength
+            </summary>
+            <returns>double</returns>
+        </member>
+        <member name="M:WiFiPositioner.Utilities.BlindMeasurement.getAverageFluctuation">
+            <summary>
+            returns the average fluctuation
+            </summary>
+            <returns>double</returns>
+        </member>
+        <member name="M:WiFiPositioner.Utilities.BlindMeasurement.setBssid(System.String)">
+            <summary>
+            sets the MAC address to a new value
+            </summary>
+            <param name="bssid">string</param>
+        </member>
+        <member name="M:WiFiPositioner.Utilities.BlindMeasurement.setRssi(System.Double)">
+            <summary>
+            sets the signal strength to a new value
+            </summary>
+            <param name="rssi">double</param>
+        </member>
+        <member name="M:WiFiPositioner.Utilities.BlindMeasurement.setAverageFluctuation(System.Double)">
+            <summary>
+            sets the average fluctuation to a new value
+            </summary>
+            <param name="averageFluctuation">double</param>
+        </member>
+        <member name="T:WiFiPositioner.Datastructures.Position">
+            <summary>
+            Stores a position in form of coordinates (int x, int y)
+            </summary>
+        </member>
+        <member name="F:WiFiPositioner.Datastructures.Position.x">
+            <summary>
+            the x value
+            </summary>
+        </member>
+        <member name="F:WiFiPositioner.Datastructures.Position.y">
+            <summary>
+            the y value
+            </summary>
+        </member>
+        <member name="M:WiFiPositioner.Datastructures.Position.#ctor">
+            <summary>
+            Standard constructor doesn't do anything special
+            </summary>
+        </member>
+        <member name="M:WiFiPositioner.Datastructures.Position.#ctor(System.Int32,System.Int32)">
+            <summary>
+            Constructor writes the position values
+            </summary>
+            <param name="x"></param>
+            <param name="y"></param>
+        </member>
+        <member name="M:WiFiPositioner.Datastructures.Position.getX">
+            <summary>
+            returns the x value
+            </summary>
+            <returns>int</returns>
+        </member>
+        <member name="M:WiFiPositioner.Datastructures.Position.getY">
+            <summary>
+            returns the y value
+            </summary>
+            <returns>int</returns>
+        </member>
+    </members>
+</doc>
