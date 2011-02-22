@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Threading;
+using System.Text.RegularExpressions;
 
 using WiFiPositioner;
 using WiFiPositioner.Datastructures;
@@ -64,30 +65,46 @@ namespace WiFiPositioner
         {
             refreshValues();
 
-            if (posSystem.createSectorAtPosition(sectorCounter,
-                                             int.Parse(textBoxSaveX.Text),
-                                             int.Parse(textBoxSaveY.Text), client))
+            // test for entered x,y coordinates
+            if (isInteger(textBoxSaveX.Text) && isInteger(textBoxSaveY.Text) &&
+               !textBoxSaveX.Text.Equals("") && !textBoxSaveY.Text.Equals(""))
             {
-                sectorCounter++;
+                if (posSystem.createSectorAtPosition(sectorCounter,
+                                                 int.Parse(textBoxSaveX.Text),
+                                                 int.Parse(textBoxSaveY.Text), client))
+                {
+                    sectorCounter++;
 
-                labelSectorNumber.Text = sectorCounter.ToString();
+                    labelSectorNumber.Text = sectorCounter.ToString();
+                }
+            }
+            else
+            {
+                MessageBox.Show("You have to enter a coordinate value for X and y", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            refreshValues();
-
-            string saveFile = "";
-
-            saveFD.Title = "Save XML Map";
-            saveFD.FileName = "";
-            
-            if (saveFD.ShowDialog() != DialogResult.Cancel)
+            if (sectorCounter != 0)
             {
-                saveFile = saveFD.FileName;
+                refreshValues();
 
-                posSystem.saveMap(saveFile);
+                string saveFile = "";
+
+                saveFD.Title = "Save XML Map";
+                saveFD.FileName = "";
+
+                if (saveFD.ShowDialog() != DialogResult.Cancel)
+                {
+                    saveFile = saveFD.FileName;
+
+                    posSystem.saveMap(saveFile);
+                }
+            }
+            else
+            {
+                MessageBox.Show("There is no data to save!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -138,17 +155,26 @@ namespace WiFiPositioner
 
         private void buttonFindPosition_Click(object sender, EventArgs e)
         {
-            refreshValues();
+            if (sectorCounter != 0)
+            {
+                refreshValues();
 
-            Position tempPos = posSystem.findPosition(client);
+                Position tempPos = posSystem.findPosition(client);
 
-           // if (tempPos != null)
-            //{
                 labelXPos.Text = tempPos.getX().ToString();
                 labelYPos.Text = tempPos.getY().ToString();
-            //}
-            //else
-              //  Console.WriteLine("ERROR: Can't find position!");
+            }
+            else
+            {
+                MessageBox.Show("There is no data which could be used to calculate the position!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private bool isInteger(String numberToTest)
+        {
+            Regex objNotIntPattern = new Regex("[^0-9-]");
+            Regex objIntPattern = new Regex("^-[0-9]+$|^[0-9]+$");
+            return !objNotIntPattern.IsMatch(numberToTest) && objIntPattern.IsMatch(numberToTest);
         }
     }
 }

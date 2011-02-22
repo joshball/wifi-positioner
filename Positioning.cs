@@ -473,7 +473,7 @@ namespace WiFiPositioner
 
                         result += tempResult;
 
-                        Console.WriteLine("Result: bssid="+apData.getBssid()+" karte " + apTemp.getRssi() + " gemessen " + apData.getRssi() + " DIF: " + tempResult);
+                        Console.WriteLine("Result: bssid="+apData.getBssid()+" map " + apTemp.getRssi() + " measured " + apData.getRssi() + " DIF: " + tempResult);
                         counter++;
                     }
                 }
@@ -512,8 +512,8 @@ namespace WiFiPositioner
         /// </summary>
         /// <param name="sector">int</param>
         /// <param name="client">WlanClient</param>
-        /// <param name="x">int</param>
-        /// <param name="y">int</param>
+        /// <param name="xSector">int</param>
+        /// <param name="ySector">int</param>
         public virtual bool createSectorAtPosition(int sector, int xSector, int ySector, WlanClient client)
         {
             //Console.WriteLine("X: ");
