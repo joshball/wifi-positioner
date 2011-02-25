@@ -1,4 +1,22 @@
-﻿using NativeWifi;
+﻿/*
+ *  WiFi Positioner - Finds your position within WiFi Hotspots
+    Copyright (C) 2011  Andre Silaghi
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+using NativeWifi;
 
 using System;
 using System.Collections.Generic;
@@ -69,13 +87,22 @@ namespace WiFiPositioner
             if (isInteger(textBoxSaveX.Text) && isInteger(textBoxSaveY.Text) &&
                !textBoxSaveX.Text.Equals("") && !textBoxSaveY.Text.Equals(""))
             {
-                if (posSystem.createSectorAtPosition(sectorCounter,
-                                                 int.Parse(textBoxSaveX.Text),
-                                                 int.Parse(textBoxSaveY.Text), client))
+                try
                 {
-                    sectorCounter++;
+                    if (posSystem.createSectorAtPosition(sectorCounter,
+                                                     int.Parse(textBoxSaveX.Text),
+                                                     int.Parse(textBoxSaveY.Text), client))
+                    {
+                        sectorCounter++;
 
-                    labelSectorNumber.Text = sectorCounter.ToString();
+                        labelSectorNumber.Text = sectorCounter.ToString();
+                    }
+                }
+                catch (System.ComponentModel.Win32Exception w32)
+                {
+                    MessageBox.Show("Sorry, it seems that your windows is not able to make use of the NativeWifi library which is included here. "
+                                        +"\n The following exception occured: \n\n " + w32.StackTrace+ "\n"
+                                        +" The error is already known but not fixed yet. You can try it on Windows Vista or 7", "Library Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
